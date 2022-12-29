@@ -1,1 +1,8 @@
-<p>header works!</p>
+<header class="header">
+  <div class="container">
+    <button mat-stroked-button class="button" [routerLink]="['']" [routerLinkActiveOptions]="{ exact: true }"
+      routerLinkActive="button_active">Photos</button>
+    <button mat-stroked-button class="button" [routerLink]="['favorites']" [routerLinkActiveOptions]="{ exact: true }"
+      routerLinkActive="button_active">Favorites</button>
+  </div>
+</header>

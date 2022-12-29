@@ -1,0 +1,22 @@
+@import '../../../../assets/styles/constants.scss';
+
+.header {
+  padding: 30px 0;
+  background: $color-bg-header;
+  box-shadow: $box-shadow;
+}
+
+.container {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.button {
+  min-width: 150px;
+
+  &_active {
+    pointer-events: none;
+    border-color: $color-bg-header;
+  }
+}
