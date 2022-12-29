@@ -11,7 +11,7 @@ const mockData: Photo[] = [{
   id: 'fakeId',
 }];
 
-fdescribe('DataService', () => {
+describe('DataService', () => {
   let service: DataService;
 
   const fakeHttpClient = jasmine.createSpyObj('HttpClient', ['get']);
