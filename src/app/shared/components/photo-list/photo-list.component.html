@@ -1,1 +1,2 @@
-<p>photo-list works!</p>
+<app-photo *ngFor="let photo of data" [id]="photo.id" [src]="photo.id | imageSrc : photoWidth" [imageIsClickable]="true"
+  alt="Photo" (imageClicked)="goToDetailView($event)"></app-photo>
