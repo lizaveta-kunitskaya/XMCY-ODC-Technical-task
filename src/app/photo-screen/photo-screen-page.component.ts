@@ -45,7 +45,7 @@ export class PhotoScreenPageComponent implements OnInit, OnDestroy {
   }
 
   get bottomReached(): boolean {
-    return window.innerHeight + window.scrollY >= document.documentElement.scrollHeight;
+    return window.innerHeight + window.scrollY >= document.body.offsetHeight;
   }
 
   get isLoading(): boolean {
