@@ -1,0 +1,2 @@
+<app-photo *ngIf="data$ | async as data" [id]="data.id" [src]="data.id | imageSrc : 2000"
+  [isFavorite]="data?.isFavorite || false" alt="Photo"></app-photo>
