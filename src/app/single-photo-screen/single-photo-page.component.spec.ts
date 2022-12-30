@@ -8,9 +8,9 @@ describe('SinglePhotoPageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SinglePhotoPageComponent ]
+      declarations: [SinglePhotoPageComponent]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {
