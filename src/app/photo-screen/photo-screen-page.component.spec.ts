@@ -31,6 +31,7 @@ describe('PhotoScreenPageComponent', () => {
   });
 
   beforeEach(() => {
+    fakeDataService.getPhotos.and.returnValue(of(mockDataPage1));
     fixture = TestBed.createComponent(PhotoScreenPageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
@@ -40,23 +41,11 @@ describe('PhotoScreenPageComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should set data after init', fakeAsync(() => {
-    fakeDataService.getPhotos.and.returnValue(of(mockDataPage1));
-
-    component.ngOnInit();
-
-    tick(300);
-
+  it('should set data after init', () => {
     expect(component.data).toEqual(mockDataPage1);
-  }));
+  });
 
   it('should load more data', fakeAsync(() => {
-    fakeDataService.getPhotos.and.returnValue(of(mockDataPage1));
-
-    component.ngOnInit();
-
-    tick(300);
-
     fakeDataService.getPhotos.and.returnValue(of(mockDataPage2));
 
     spyOnProperty(component, 'bottomReached').and.returnValue(true);
