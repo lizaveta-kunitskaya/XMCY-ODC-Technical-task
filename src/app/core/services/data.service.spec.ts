@@ -40,27 +40,68 @@ describe('DataService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('should return data', () => {
-    fakeHttpClient.get.and.returnValue(of(mockData));
+  describe('getPhotos', () => {
+    it('should return data', () => {
+      fakeHttpClient.get.and.returnValue(of(mockData));
 
-    service.getPhotos(0).subscribe(value => {
-      expect(value).toEqual([
-        {
-          id: 'fakeId1',
-          isFavorite: false,
-        },
-        {
-          id: 'fakeId2',
-          isFavorite: true,
-        },
-      ]);
-    })
+      service.getPhotos(0).subscribe(value => {
+        expect(value).toEqual([
+          {
+            id: 'fakeId1',
+            isFavorite: false,
+          },
+          {
+            id: 'fakeId2',
+            isFavorite: true,
+          },
+        ]);
+      })
+    });
+
+    it('should return an empty array if an error occurs', () => {
+      fakeHttpClient.get.and.returnValue(throwError({ status: 500 }));
+      service.getPhotos(0).subscribe(value => {
+        expect(value).toEqual([]);
+      })
+    });
   });
 
-  it('should return an empty array if an error occurs', () => {
-    fakeHttpClient.get.and.returnValue(throwError({ status: 500 }));
-    service.getPhotos(0).subscribe(value => {
-      expect(value).toEqual([]);
-    })
+  describe('getPhotoById', () => {
+    it('should return data', () => {
+      fakeHttpClient.get.and.returnValue(of({
+        id: 'fakeId1',
+      }));
+
+      service.getPhotoById('fakeId2').subscribe(value => {
+        expect(value).toEqual({
+          id: 'fakeId1',
+          isFavorite: false,
+        });
+      })
+    });
+
+    it('should return null if an error occurs', () => {
+      fakeHttpClient.get.and.returnValue(throwError({ status: 500 }));
+      service.getPhotoById('fakeId').subscribe(value => {
+        expect(value).toBeNull();
+      })
+    });
+  });
+
+  describe('getFavoritePhotos', () => {
+    it('should return data', () => {
+      fakeHttpClient.get.and.returnValue(of({
+        id: 'fakeId2',
+      }));
+
+      service.getFavoritePhotos().subscribe(value => {
+        expect(value).toEqual([
+          {
+            id: 'fakeId2',
+            isFavorite: true,
+          },
+        ]);
+      })
+    });
   });
 });
