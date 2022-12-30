@@ -1,27 +1,9 @@
-# MyApp
+# XMCY-ODC Technical-task
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.2.8.
+__Description:__ https://docs.google.com/document/d/1kh5E9qkEcWeO36KFBu0Z8raqmpRUF46V/edit?usp=sharing&ouid=103373784925844810783&rtpof=true&sd=true
 
-## Development server
+__Demo:__ https://www.loom.com/share/3562988f71ec4684b73fa8e2ca1208c9
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+__Deploy:__ https://elaborate-hotteok-7d081b.netlify.app/
 
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+__Important details:__ since the task does not describe how the user should navigate from the photo list page to the page with a single photo, I decided to do this by clicking on the image, and add or remove from favorites using the buttons.
