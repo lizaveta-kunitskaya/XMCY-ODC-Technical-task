@@ -1,15 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
+
+import { DataService } from '../core/services/data.service';
 
 @Component({
   selector: 'app-favorites-photo-page',
   templateUrl: './favorites-photo-page.component.html',
-  styleUrls: ['./favorites-photo-page.component.scss']
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class FavoritesPhotoPageComponent implements OnInit {
+export class FavoritesPhotoPageComponent {
 
-  constructor() { }
+  readonly data$ = this.dataService.getFavoritePhotos();
 
-  ngOnInit(): void {
-  }
-
+  constructor(private readonly dataService: DataService) { }
 }
