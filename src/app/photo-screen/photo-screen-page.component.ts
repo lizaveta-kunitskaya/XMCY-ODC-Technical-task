@@ -1,6 +1,6 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, HostListener, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, HostListener, OnInit, OnDestroy } from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
-import { debounceTime, finalize, switchMap, takeUntil, tap } from 'rxjs/operators';
+import { debounceTime, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { Photo } from '../core/models/photo.models';
 
 import { DataService } from '../core/services/data.service';
@@ -11,7 +11,7 @@ import { DataService } from '../core/services/data.service';
   styleUrls: ['./photo-screen-page.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PhotoScreenPageComponent implements OnInit {
+export class PhotoScreenPageComponent implements OnInit, OnDestroy {
   data: Photo[] = [];
 
   readonly loading$ = new Subject<boolean>();
@@ -44,5 +44,10 @@ export class PhotoScreenPageComponent implements OnInit {
 
   get bottomReached(): boolean {
     return window.innerHeight + window.scrollY >= document.documentElement.scrollHeight;
+  }
+
+  ngOnDestroy() {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
   }
 }
