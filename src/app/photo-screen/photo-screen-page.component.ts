@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, HostListener, OnInit, OnDestroy } from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
-import { debounceTime, switchMap, takeUntil, tap } from 'rxjs/operators';
+import { takeUntil, finalize, delay } from 'rxjs/operators';
 import { Photo } from '../core/models/photo.models';
 
 import { DataService } from '../core/services/data.service';
@@ -14,31 +14,33 @@ import { DataService } from '../core/services/data.service';
 export class PhotoScreenPageComponent implements OnInit, OnDestroy {
   data: Photo[] = [];
 
-  readonly loading$ = new Subject<boolean>();
+  readonly loading$ = new BehaviorSubject(false);
 
-  private readonly page$ = new BehaviorSubject(1);
+  private page = 1;
+
   private readonly unsubscribe$ = new Subject<void>();
 
   constructor(private readonly dataService: DataService, private readonly cdr: ChangeDetectorRef) { }
 
   ngOnInit() {
-    this.page$.pipe(
-      takeUntil(this.unsubscribe$),
-      tap(() => this.loading$.next(true)),
-      switchMap(page => this.dataService.getPhotos(page)),
-      debounceTime(300),
-      tap(() => this.loading$.next(false)),
-    ).subscribe((data) => {
-      this.data = [...this.data, ...data];
-      this.cdr.markForCheck();
+    this.dataService.getPhotos(this.page).pipe(takeUntil(this.unsubscribe$)).subscribe(data => {
+      this.updatePhotoList(data);
     });
   }
 
   @HostListener('window:scroll', [])
   onScroll(): void {
-    if (this.bottomReached) {
-      const page = this.page$.getValue() + 1;
-      this.page$.next(page);
+    if (this.bottomReached && !this.isLoading) {
+      this.loading$.next(true);
+      this.page++;
+
+      this.dataService.getPhotos(this.page).pipe(
+        takeUntil(this.unsubscribe$),
+        delay(300),
+        finalize(() => this.loading$.next(false)),
+      ).subscribe(data => {
+        this.updatePhotoList(data);
+      });
     }
   }
 
@@ -46,8 +48,17 @@ export class PhotoScreenPageComponent implements OnInit, OnDestroy {
     return window.innerHeight + window.scrollY >= document.documentElement.scrollHeight;
   }
 
+  get isLoading(): boolean {
+    return this.loading$.getValue();
+  }
+
   ngOnDestroy() {
     this.unsubscribe$.next();
     this.unsubscribe$.complete();
+  }
+
+  private updatePhotoList(data: Photo[]) {
+    this.data = [...this.data, ...data];
+    this.cdr.markForCheck();
   }
 }
