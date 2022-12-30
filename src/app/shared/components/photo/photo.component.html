@@ -2,7 +2,7 @@
   <img mat-card-image class="image" [ngClass]="{'action-disabled': !imageIsClickable}" [src]="src" [alt]="alt"
     (click)="imageOnClick()">
   <mat-card-actions>
-    <button mat-button mat-stroked-button *ngIf="!isFavorite">Like</button>
-    <button mat-button mat-stroked-button *ngIf="isFavorite">Remove from favorites</button>
+    <button mat-button mat-stroked-button *ngIf="!isFavorite" (click)="addToFavorites()">Like</button>
+    <button mat-button mat-stroked-button *ngIf="isFavorite" (click)="removeFromFavorites()">Remove from favorites</button>
   </mat-card-actions>
 </mat-card>

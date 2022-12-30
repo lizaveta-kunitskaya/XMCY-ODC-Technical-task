@@ -1,2 +1,2 @@
-<app-photo *ngFor="let photo of data" [id]="photo.id" [src]="photo.id | imageSrc : photoWidth" [imageIsClickable]="true"
+<app-photo *ngFor="let photo of data" [id]="photo.id" [src]="photo.id | imageSrc : photoWidth" [imageIsClickable]="true" [isFavorite]="photo?.isFavorite || false"
   alt="Photo" (imageClicked)="goToDetailView($event)"></app-photo>
