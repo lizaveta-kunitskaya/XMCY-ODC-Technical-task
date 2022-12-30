@@ -21,8 +21,6 @@ describe('DataService', () => {
   let service: DataService;
 
   const fakeHttpClient = jasmine.createSpyObj('HttpClient', ['get']);
-  fakeHttpClient.get.and.returnValue(of(mockData));
-
   const fakeFavoritePhotoService = jasmine.createSpyObj('FavoritePhotoService', [], {
     currentFavorites: ['fakeId2'],
   });
@@ -43,6 +41,8 @@ describe('DataService', () => {
   });
 
   it('should return data', () => {
+    fakeHttpClient.get.and.returnValue(of(mockData));
+
     service.getPhotos(0).subscribe(value => {
       expect(value).toEqual([
         {
